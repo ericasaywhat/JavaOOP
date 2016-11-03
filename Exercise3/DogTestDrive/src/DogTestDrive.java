@@ -31,6 +31,34 @@ class Dog {
 	}
 }
 
+class DogPack {
+	private Dog [] dogs;		
+
+	public void makeArray(int arraysize) {
+		dogs = new Dog[arraysize];
+	}
+	
+	public void addDog(int intIndex, Dog oneDog) {		
+		dogs[intIndex] = oneDog;
+	}
+	
+	public Dog[] getArray() {
+		return dogs;
+	}	
+	
+	public Dog biggestDog() {
+		Dog biggestDog = new Dog();
+		//To find the biggest dog
+		for (int i = 0; i < dogs.length; i++) {
+			Dog oneDog = dogs[i];
+			if (oneDog.isBigger(biggestDog)) {
+				biggestDog = oneDog;
+				}		
+		}
+		return biggestDog;
+	}		
+}
+
 class Cat extends Dog {
 	@Override
 	void bark(){
@@ -47,50 +75,32 @@ class Cat extends Dog {
  *
  */
 class DogTestDrive {
-	
-	private static Dog[] makePack(int arraysize) {
-		Random rand = new Random();
-		String[] breeds = {"Chihuahua", "Terrier", "German Shepherd", "Collie"};
-		Dog [] dogs = new Dog[arraysize];			
-		
-		for (int i = 0; i < arraysize; i++) {
-			Dog oneDog = new Dog();
-			int size = rand.nextInt(10) + 5;		
-			int breedIndex = rand.nextInt(4);		
-			oneDog.setSize(size);					
-			oneDog.breed = breeds[breedIndex];		
-			
-			dogs[i] = oneDog;				
-			
-			System.out.println("Dog number " + String.valueOf(i+1) + ": " + oneDog.breed + " of size " + oneDog.getSize());
-			}
-		
-		return dogs;
-	}
-	
+
 	private static void bark(Dog[] pack) {
 		for (int i = 0; i < pack.length; i++) {
 			pack[i].bark();
 		}
 	}
 	
-	private static Dog findBiggestDog(Dog[] pack) {
-		Dog biggestDog = new Dog();
-		//To find the biggest dog
-		for (int i = 0; i < pack.length; i++) {
-			Dog oneDog = pack[i];
-			if (oneDog.isBigger(biggestDog)) {
-				biggestDog = oneDog;
-				}		
-		}
-		return biggestDog;
-
-	}		
 	
 	public static void main(String[] args) {
-		Dog[] dogPack = makePack(4);
-		bark(dogPack);
-		Dog biggestDog = findBiggestDog(dogPack);
+	Random rand = new Random();
+		String[] breeds = {"Chihuahua", "Terrier", "German Shepherd", "Collie"};
+
+		int[] intSizes = {5,10,12,15};
+		DogPack dogPack = new DogPack();
+		dogPack.makeArray(4);
+		
+		//for all sizes make a dog and put into dogPack
+		for(int i = 0; i < intSizes.length; i++) {
+			Dog oneDog = new Dog();
+			oneDog.breed = breeds[rand.nextInt(4)];		
+			oneDog.setSize(intSizes[i]);
+			dogPack.addDog(i, oneDog);
+			System.out.println(oneDog.breed.toString() + ": " + oneDog.getSize());
+		}
+		
+		Dog biggestDog = dogPack.biggestDog();
 		System.out.println("The biggest dog is " + biggestDog.breed + " of size " + biggestDog.getSize());
 		
 	}
