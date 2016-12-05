@@ -11,7 +11,7 @@ public class HistogramTest {
 		Histogram h = new Histogram();
 		h.count("There is no English Breakfast tea. The day already looks bleak.");
 		
-		assertTrue(h.toString().getClass().equals(String.class));
+		assertTrue(h.toString() instanceof String);
 		
 	}
 	@Test

@@ -14,23 +14,22 @@ public class Histogram {
 	/**
 	 * A Histogram represents a set of counters that counts the frequency
 	 * of each element of the set. A natural implementation is a HashMap
-	 * that maps from String elements to Integer counters
+	 * that maps from Character elements to Integer counters
 	 */
-	HashMap<String, Integer> hist;	
+	HashMap<Character, Integer> hist;	
 	public Histogram() {
-		hist = new HashMap<String,Integer>();
+		hist = new HashMap<Character,Integer>();
 	}
 	
 	public String toString(){
 		return hist.toString();
 	}
 	public void count(Character c){
-		int counter = 0;
-		if (hist.containsKey(c.toString())){
-			counter = hist.get(c.toString())+1;
-			hist.put(c.toString(), counter);
+		if (hist.containsKey(c)){
+			int counter = hist.get(c)+1;
+			hist.put(c, counter);
 		} else {
-			hist.put(c.toString(), 1);
+			hist.put(c, 1);
 		}
 	}
 	
@@ -42,8 +41,8 @@ public class Histogram {
 	}
 	
 	public int freq(Character c){
-		if (hist.containsKey(c.toString())){
-			return hist.get(c.toString());
+		if (hist.containsKey(c)){
+			return hist.get(c);
 		} else {
 			return 0;
 		}
